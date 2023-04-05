@@ -11,10 +11,20 @@ import { ProductsService } from '../../services'
 export class ProductListComponent implements OnInit {
 
   myShoppingCart: Product[] = []
-  totalPrice: number = 0;
+  totalPrice = 0;
   products: Product[] = []
-
   today = new Date();
+
+  showProductDetail = false
+  productChosen: Product = {
+    id: '',
+    title: 'Product name',
+    price: 0,
+    images: ['../../../assets/images/default.png'],
+    description: '',
+    category: { id: '', name: '' }
+  }
+  currentSlideIndex = 0;
 
   constructor(
     private storeService: StoreService,
@@ -31,13 +41,39 @@ export class ProductListComponent implements OnInit {
       })
   }
 
-
-
   onAddToShoppingCart(product: Product) {
     this.storeService.addProduct(product)
     this.totalPrice = this.storeService.getTotal()
   }
 
+  toggleProductDetail() {
+    this.showProductDetail = !this.showProductDetail;
+  }
+
+  onShowProductDetail(id: string) {
+    this.productsService.getProduct(id)
+      .subscribe(data => {
+        this.toggleProductDetail()
+        this.productChosen = data;
+      })
+  }
 
 
+  prevSlide() {
+    if (this.currentSlideIndex === 0) {
+      this.currentSlideIndex = this.productChosen.images.length - 1;
+    } else {
+      this.currentSlideIndex--;
+    }
+  }
+
+  nextSlide() {
+    if (this.currentSlideIndex === this.productChosen.images.length - 1) {
+      this.currentSlideIndex = 0;
+    } else {
+      this.currentSlideIndex++;
+    }
+  }
+
+  
 }

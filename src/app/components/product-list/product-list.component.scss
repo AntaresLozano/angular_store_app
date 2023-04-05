@@ -3,6 +3,101 @@
     flex-direction: column;
 }
 
+.product-detail {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: all ease-out .5s;
+    transform: translateX(100%);
+
+    &.active {
+        transform: translateX(0);
+    }
+}
+
+// slider
+
+.slider-container {
+    width: 100%;
+    height: 400px;
+    /* Ajusta la altura según tus necesidades */
+    position: relative;
+    overflow: hidden;
+}
+
+.slider {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    /* Ajusta la anchura según tus necesidades */
+    height: 400px;
+    /* Ajusta la altura según tus necesidades */
+    transition: all 0.5s ease-in-out;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    border: none;
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.slider-btn-next {
+    right: 20px;
+}
+
+.slider-btn-prev {
+    left: 20px;
+}
+
+.slider-container.ng-enter,
+.slider-container.ng-leave,
+.slider.ng-enter,
+.slider.ng-leave {
+    transition: all 0.5s ease-in-out;
+}
+
+.slider-container.ng-enter,
+.slider.ng-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.slider-container.ng-enter.ng-enter-active,
+.slider.ng-enter.ng-enter-active {
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.slider-container.ng-leave,
+.slider.ng-leave {
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.slider-container.ng-leave.ng-leave-active,
+.slider.ng-leave.ng-leave-active {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+
+
+
 // tablets
 @media screen and (min-width:40em) and (max-width:63.3em) {
     .products--grid {

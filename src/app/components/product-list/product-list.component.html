@@ -2,7 +2,28 @@
 <p>precio total: ${{totalPrice}} </p>
 <p>fecha: {{today | date: 'dd-MM-YYYY'}}</p>
 
+<button (click)="toggleProductDetail()">click</button>
 <div class="products--grid">
-    <app-product [product]="product" *ngFor="let product of products"
+    <app-product (showProduct)="onShowProductDetail($event)" [product]="product" *ngFor="let product of products"
         (addedProduct)="onAddToShoppingCart($event)"></app-product>
+</div>
+<div class="product-detail" [ngClass]="{active:showProductDetail}">
+    <div>
+        <button (click)="toggleProductDetail()">close</button>
+        <!-- <div class="slider-container">
+            <div class="slider" *ngFor="let product of productChosen.images; index as i">
+                <img src={{productChosen.images[i]}} alt="">
+            </div>
+        </div> -->
+        <h1>{{productChosen.title}}</h1>
+        <p>{{productChosen.price}}</p>
+        <div class="slider-container" *ngIf="productChosen.images.length > 0">
+            <div class="slider" *ngFor="let product of productChosen.images; index as i">
+                <img src="{{productChosen.images[currentSlideIndex]}}" alt="">
+            </div>
+            <button class="slider-btn slider-btn-prev" (click)="prevSlide()"><</button>
+            <button class="slider-btn slider-btn-next" (click)="nextSlide()">></button>
+        </div>
+        <p>{{productChosen.description}}</p>
+    </div>
 </div>
